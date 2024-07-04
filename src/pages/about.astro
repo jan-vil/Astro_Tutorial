@@ -1,6 +1,8 @@
---- 
+---
 /* Això declara variables que s'utilitzen en l'HTML */
-import '../styles/global.css';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 const pageTitle = "About Me";
 
@@ -19,17 +21,18 @@ const goal = 3;
 
 const skillColor = "red";
 const fontWeight = "bold";
-const textCase = "uppercase"
+const textCase = "uppercase";
 ---
 
 <html lang="en">
 	<head>
+		<Header />
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
-		<style define:vars={{skillColor, fontWeight, textCase}}>
+		<style define:vars={{ skillColor, fontWeight, textCase }}>
 			h1 {
 				color: blue;
 				font-size: 4rem;
@@ -41,12 +44,9 @@ const textCase = "uppercase"
 			}
 		</style>
 	</head>
+
 	<body>
 		<h1>{pageTitle}</h1>
-		<a href="/">Home</a>
-		<a href="/about/">About</a>
-		<a href="/blog/">Blog</a>
-		<title>{pageTitle}</title>
 		<h2>Tot això és HTML, així que de moment no hi ha res de nou</h2>
 		<p>Va bé per refrescar tot el que he fet fins ara</p>
 
@@ -82,5 +82,9 @@ const textCase = "uppercase"
 				<p>My goal is not 3 days.</p>
 			)
 		}
+		<Footer />
+		<script> /* Fa que els links de navegació desapareixin quan el tamany del navegador és massa petit */
+			import "../scripts/menu.js";
+		</script>
 	</body>
 </html>
