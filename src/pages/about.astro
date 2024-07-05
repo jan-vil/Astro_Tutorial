@@ -22,12 +22,8 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<BaseLayout>
+<BaseLayout pageTitle={pageTitle}>
 	<style define:vars={{ skillColor, fontWeight, textCase }}>
-		h1 {
-			color: blue;
-			font-size: 4rem;
-		}
 		.skill {
 			color: var(--skillColor);
 			font-weight: var(--fontWeight);
@@ -35,7 +31,6 @@ const textCase = "uppercase";
 		}
 	</style>
 
-	<h1>{pageTitle}</h1>
 	<h2>Tot això és HTML, així que de moment no hi ha res de nou</h2>
 	<p>Va bé per refrescar tot el que he fet fins ara</p>
 
