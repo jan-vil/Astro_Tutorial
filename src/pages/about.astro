@@ -1,8 +1,6 @@
 ---
 /* Això declara variables que s'utilitzen en l'HTML */
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About Me";
 
@@ -24,67 +22,53 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<html lang="en">
-	<head>
-		<Header />
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-		<style define:vars={{ skillColor, fontWeight, textCase }}>
-			h1 {
-				color: blue;
-				font-size: 4rem;
-			}
-			.skill {
-				color: var(--skillColor);
-				font-weight: var(--fontWeight);
-				text-transform: var(--textCase);
-			}
-		</style>
-	</head>
+<BaseLayout>
+	<style define:vars={{ skillColor, fontWeight, textCase }}>
+		h1 {
+			color: blue;
+			font-size: 4rem;
+		}
+		.skill {
+			color: var(--skillColor);
+			font-weight: var(--fontWeight);
+			text-transform: var(--textCase);
+		}
+	</style>
 
-	<body>
-		<h1>{pageTitle}</h1>
-		<h2>Tot això és HTML, així que de moment no hi ha res de nou</h2>
-		<p>Va bé per refrescar tot el que he fet fins ara</p>
+	<h1>{pageTitle}</h1>
+	<h2>Tot això és HTML, així que de moment no hi ha res de nou</h2>
+	<p>Va bé per refrescar tot el que he fet fins ara</p>
 
-		<p>Aqui hi ha alguns fets sobre mi:</p>
-		<ul>
-			<li>El meu nom és {identity.firstName}.</li>
-			<li>
-				Visc a {identity.country} i soc: {identity.occupation}.
-			</li>
-			{
-				identity.hobbies.length >= 2 && (
-					<li>
-						Dos dels meus hobbies són: {identity.hobbies[0]} and{" "}
-						{identity.hobbies[1]}
-					</li>
-				)
-			}
-		</ul>
-		<p>Les meves habilitats són:</p>
-		<ul>
-			{skills.map((skill) => <li class="skill">{skill}</li>)}
-			<!-- Que fa el .map? -->
-		</ul>
-
-		{happy && <p>I am happy to be learning Astro!</p>}
-
-		{finished && <p>I finished this tutorial!</p>}
-
+	<p>Aqui hi ha alguns fets sobre mi:</p>
+	<ul>
+		<li>El meu nom és {identity.firstName}.</li>
+		<li>
+			Visc a {identity.country} i soc: {identity.occupation}.
+		</li>
 		{
-			goal === 3 ? (
-				<p>My goal is to finish in 3 days.</p>
-			) : (
-				<p>My goal is not 3 days.</p>
+			identity.hobbies.length >= 2 && (
+				<li>
+					Dos dels meus hobbies són: {identity.hobbies[0]} and{" "}
+					{identity.hobbies[1]}
+				</li>
 			)
 		}
-		<Footer />
-		<script> /* Fa que els links de navegació desapareixin quan el tamany del navegador és massa petit */
-			import "../scripts/menu.js";
-		</script>
-	</body>
-</html>
+	</ul>
+	<p>Les meves habilitats són:</p>
+	<ul>
+		{skills.map((skill) => <li class="skill">{skill}</li>)}
+		<!-- Que fa el .map? -->
+	</ul>
+
+	{happy && <p>I am happy to be learning Astro!</p>}
+
+	{finished && <p>I finished this tutorial!</p>}
+
+	{
+		goal === 3 ? (
+			<p>My goal is to finish in 3 days.</p>
+		) : (
+			<p>My goal is not 3 days.</p>
+		)
+	}
+</BaseLayout>
