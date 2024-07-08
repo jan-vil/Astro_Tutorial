@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from '../../components/BlogPost.astro';
+
+export async function getStaticPaths() {
+    const allPosts =
+        await Astro.glob(
+            "../posts/*.md",
+        ); /*Això agafa tots els posts del blog, fa un array i els assigna a la variable allPosts */
+    const uniqueTags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),]; /*Agafa tots els tags dels posts i els posa en un sol array */
+    /*  return [
+        { params: { tag: "astro" }, props: { posts: allPosts } },
+        { params: { tag: "successes" }, props: { posts: allPosts } },
+        { params: { tag: "community" }, props: { posts: allPosts } },
+        { params: { tag: "blogging" }, props: { posts: allPosts } },
+        { params: { tag: "setbacks" }, props: { posts: allPosts } },
+        { params: { tag: "learning in public" }, props: { posts: allPosts } },
+    ]; */
+    return uniqueTags.map((tag) => {
+        const filteredPosts = allPosts.filter((post) =>
+            post.frontmatter.tags.includes(tag),
+        );
+        return {
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    }); /*Aquesta funció substitueix l'anterior return amb un javascript que agafa tots els tags dinàmicament, recollits a uniqueTags */
+}
+const { tag } = Astro.params; /*Declara tag com un paràmetre d'astro */
+const { posts } = Astro.props; /*Declara posts com un prop d'astro */
+---
+
+<BaseLayout pageTitle={tag}>
+    <p>Posts tagged with {tag}</p>
+    <ul>
+        {posts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+    </ul>
+</BaseLayout>
